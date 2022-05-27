@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [sse, setSSE] = useState(null)
   useEffect(() => {
+    // auto-reconnect logic of SSE
     if (sse) {
       // default message event
       sse.addEventListener("message", (evt) => {
@@ -35,9 +36,11 @@ function App() {
     }
   }, [sse])
 
+  // initial instantiation of opening Event Source
   useEffect(() => {
     setSSE(new EventSource("http://localhost:3000/sse"))
   }, [])
+
   return (
     <div className="App">
       <header className="App-header">
